@@ -8,10 +8,10 @@
         <div class="view">
           <label>
             <input class="toggle" type="checkbox" v-model="todo.completed" />
-            {{ todo.title }}
+            {{ todo.name }}
           </label>
-          <button class="destroy" @click="removeTodo(todo)">Delete</button>
-          {{ since(todo.created) }}
+          <button class="destroy" @click="removeTodo(todo)">X</button><br>
+          <small><i>{{ since(todo.created) }}</i></small>
         </div>
       </li>
     </ul>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import { store } from "./store";
+import { store } from "@/store";
 //import { ref } from "vue";
 import * as Vue from "vue";
-import { enableVueBindings } from "@syncedstore/core";
-import { /*getYjsValue,*/ observeDeep } from "@syncedstore/core";
+import { enableVueBindings, /*observeDeep, getYjsValue*/ } from "@syncedstore/core";
+import { v4 as uuidv4 } from 'uuid';
 import GraphView from '@/views/GraphView.vue'
 
 // make SyncedStore use Vuejs internally
@@ -41,9 +41,9 @@ export default {
       newTodo: ""
     };
   },
-  created(){
-    observeDeep(this.store.todos, this.changed)
-  },
+  // created() {
+  //   observeDeep(this.store.todos, this.changed)
+  // },
   methods: {
     addTodo() {
       const value = this.newTodo && this.newTodo.trim();
@@ -51,8 +51,10 @@ export default {
         return;
       }
       this.store.todos.push({
-        title: value,
+        id: uuidv4(),
+        name: value,
         completed: false,
+        group: "todo",
         created: Date.now()
       });
       this.newTodo = "";
@@ -78,20 +80,10 @@ export default {
       // var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
       // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
       var display = ''
-      display = a > 0 ? a + 'a' :    m > 0 ? m + 'm' :    j > 0 ? j + 'j' : h > 0 ? h + 'h' : min > 0 ? min + 'min' : s + 's'
+      display = a > 0 ? a + 'a' : m > 0 ? m + 'm' : j > 0 ? j + 'j' : h > 0 ? h + 'h' : min > 0 ? min + 'min' : s + 's'
       return display//hDisplay + mDisplay + sDisplay;
     },
-    changed(data){
-      console.log("foreach",data)
-      console.log(data[0].target.toJSON())
-      console.log(data[0].transaction.changed.entries())
-      let iterator1 = data[0].transaction.changed.entries()
-      console.log(iterator1.next().value)
-      // iterator1.forEach(function(value, key, map){
-      //   console.log(`m[${key}] = ${value}`);
-      //   console.log(map)
-      // })
-    }
+
   },
 };
 </script>
@@ -111,5 +103,14 @@ ul {
 
 li button {
   margin-left: 1em;
+}
+
+.todo-list {
+  z-index: 100;
+  top: 0;
+  position: absolute;
+  background-color: antiquewhite;
+  list-style-type: none;
+  padding-left: 0px;
 }
 </style>
