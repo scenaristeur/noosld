@@ -62,20 +62,30 @@ export default {
     },
     secondsToHms(d) {
       d = Number(d);
+      var a = Math.floor(d / 31557600);
+      var m = Math.floor(d / 2592000);
       var j = Math.floor(d / 86400);
       var h = Math.floor(d / 3600);
-      var m = Math.floor(d % 3600 / 60);
+      var min = Math.floor(d % 3600 / 60);
       var s = Math.floor(d % 3600 % 60);
 
       // var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
       // var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
       // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
       var display = ''
-      display = j > 0 ? j + 'j' : h > 0 ? h + 'h' : m > 0 ? m + 'm' : s + 's'
+      display = a > 0 ? a + 'a' :    m > 0 ? m + 'm' :    j > 0 ? j + 'j' : h > 0 ? h + 'h' : min > 0 ? min + 'min' : s + 's'
       return display//hDisplay + mDisplay + sDisplay;
     },
     changed(data){
-      console.log(data)
+      console.log("foreach",data)
+      console.log(data[0].target.toJSON())
+      console.log(data[0].transaction.changed.entries())
+      let iterator1 = data[0].transaction.changed.entries()
+      console.log(iterator1.next().value)
+      // iterator1.forEach(function(value, key, map){
+      //   console.log(`m[${key}] = ${value}`);
+      //   console.log(map)
+      // })
     }
   },
 };
