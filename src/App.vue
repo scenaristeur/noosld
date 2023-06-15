@@ -15,6 +15,7 @@
         </div>
       </li>
     </ul>
+    <GraphView />
   </main>
 </template>
 
@@ -24,12 +25,16 @@ import { store } from "./store";
 import * as Vue from "vue";
 import { enableVueBindings } from "@syncedstore/core";
 import { /*getYjsValue,*/ observeDeep } from "@syncedstore/core";
+import GraphView from '@/views/GraphView.vue'
 
 // make SyncedStore use Vuejs internally
 enableVueBindings(Vue);
 
 export default {
   name: "App",
+  components: {
+    GraphView
+  },
   data() {
     return {
       store, // Put the store on the data() of the component
