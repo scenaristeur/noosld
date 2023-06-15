@@ -13,9 +13,9 @@ export const store = syncedStore({ todos : [] , fragment: "xml"});
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = getYjsDoc(store);
-export const webrtcProvider = new WebrtcProvider("syncedstore-todos", doc);
-export const indexDBprovider = new IndexeddbPersistence("my-document-id", doc);
-export const websocketProvider = new WebsocketProvider("wss://yjs-leveldb.glitch.me/noosphere", "my-roomname", doc);
+export const webrtcProvider = new WebrtcProvider("noosld", doc);
+export const indexDBprovider = new IndexeddbPersistence("noosld", doc);
+export const websocketProvider = new WebsocketProvider("wss://yjs-leveldb.glitch.me/noosphere", "noosld", doc);
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 
