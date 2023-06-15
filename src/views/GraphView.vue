@@ -40,7 +40,7 @@ export default {
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
                 .onNodeClick(node => this.focus(node))
-                .nodeAutoColorBy('group')
+                .nodeAutoColorBy('completed')
 
             this.graph.graphData({ nodes: this.nodes, links: this.links })
         },
@@ -82,6 +82,11 @@ export default {
                         this.nodes = this.nodes.filter(n => n.id != node.id); // Remove node
                     }
                 })
+            } else {
+                //update one march pô
+                let node_exist = this.nodes.find(({ id }) => id === last.id);
+                let merged = { ...node_exist, ...last }
+                node_exist = merged
             }
 
 
