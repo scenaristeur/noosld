@@ -1,5 +1,9 @@
 # noosld
 
+- todo advanced https://syncedstore.org/docs/advanced/text
+- https://syncedstore.org/docs/api/ API
+
+
 ## Project setup
 ```
 npm install
