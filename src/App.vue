@@ -1,10 +1,57 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <main id="app">
+    <h1>Todo Vue</h1>
+    <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo"
+      @keyup.enter="addTodo" />
+    <ul class="todo-list">
+      <li v-for="todo in store.todos" class="todo" :key="todo.id">
+        <div class="view">
+          <label>
+            <input class="toggle" type="checkbox" v-model="todo.completed" />
+            {{ todo.title }}
+          </label>
+          <button class="destroy" @click="removeTodo(todo)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </main>
 </template>
+
+<script>
+import { store } from "./store";
+//import { ref } from "vue";
+import * as Vue from "vue";
+import { enableVueBindings } from "@syncedstore/core";
+
+// make SyncedStore use Vuejs internally
+enableVueBindings(Vue);
+
+export default {
+  name: "App",
+  data() {
+    return {
+      store, // Put the store on the data() of the component
+      newTodo: ""
+    };
+  },
+  methods: {
+    addTodo() {
+      const value = this.newTodo && this.newTodo.trim();
+      if (!value) {
+        return;
+      }
+      this.store.todos.push({
+        title: value,
+        completed: false,
+      });
+      this.newTodo = "";
+    },
+    removeTodo(todo) {
+      this.store.todos.splice(this.store.todos.indexOf(todo), 1);
+    }
+  }
+};
+</script>
 
 <style>
 #app {
@@ -15,16 +62,11 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+ul {
+  text-align: left;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+li button {
+  margin-left: 1em;
 }
 </style>
