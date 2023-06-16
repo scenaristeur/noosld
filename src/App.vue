@@ -4,15 +4,15 @@
 
     <GraphView />
     <div id="menu">
-      <!-- <button id="table">TABLE</button>
-      <button id="sphere">SPHERE</button>
-      <button id="helix">HELIX</button>
+      <!-- <button id="table">mode input typehead</button>
+      <button id="sphere">mode input basic dropdown</button> -->
+      <!-- <button id="helix">HELIX</button>
       <button id="grid">GRID</button> -->
-      <button @click="show = !show" >NOOS</button>
+      <button @click="show = !show">NOOS</button>
 
 
     </div>
-    <b-offcanvas v-model="show"  bodyScrolling="true" :title="y_store.todos.length+ ' noos'">
+    <b-offcanvas v-model="show" bodyScrolling="true" :title="y_store.todos.length + ' noos'">
       <TodoList />
     </b-offcanvas>
   </main>
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      show: false, 
+      show: false,
       y_store
     }
   }
