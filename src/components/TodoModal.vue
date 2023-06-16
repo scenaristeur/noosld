@@ -1,6 +1,6 @@
 <template>
-    <b-modal @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name">
-
+    <b-modal size="xl" @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name">
+        <TiptapEditor />
         text:
         <blockquote>
             <p contenteditable @input="onInput" ref="editableText">
@@ -20,10 +20,13 @@
 
 <script>
 import { y_store } from "@/y_store/index.js";
-export default {
+import TiptapEditor from '@/components/TiptapEditor.vue'
 
-    name: "TodoModal"
-    ,
+export default {
+    name: "TodoModal",
+    components: {
+        TiptapEditor
+    },
     data() {
         return {
             currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes !" }, // annonce au démarrage

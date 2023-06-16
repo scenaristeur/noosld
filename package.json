@@ -10,21 +10,34 @@
     "postgit": "git push && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
+    "@hocuspocus/provider": "^2.1.0",
     "@popperjs/core": "2.11.6",
     "@syncedstore/core": "^0.5.1",
+    "@tiptap/extension-character-count": "^2.0.3",
+    "@tiptap/extension-collaboration": "^2.0.3",
+    "@tiptap/extension-collaboration-cursor": "^2.0.3",
+    "@tiptap/extension-highlight": "^2.0.3",
+    "@tiptap/extension-task-item": "^2.0.3",
+    "@tiptap/extension-task-list": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
+    "@tiptap/vue-3": "^2.0.3",
     "3d-force-graph": "^1.71.4",
+    "babel-loader": "^9.1.2",
     "bootstrap": "5.2.1",
     "bootstrap-vue-3": "0.3.4",
     "core-js": "^3.8.3",
     "element-resize-detector": "^1.2.4",
     "register-service-worker": "^1.7.2",
+    "remixicon": "^3.3.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-simple-typeahead": "^1.0.11",
     "vuex": "^4.0.0",
     "y-indexeddb": "^9.0.11",
+    "y-prosemirror": "^1.0.20",
     "y-webrtc": "^10.2.5",
-    "y-websocket": "^1.5.0"
+    "y-websocket": "^1.5.0",
+    "yjs": "^13.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -36,6 +49,8 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2"
   }
 }

@@ -36,7 +36,7 @@
 
 <script>
 
-import { y_store } from "@/y_store/index.js";
+import { y_store } from "@/y_store";
 // import { store } from "@/store";
 //import { ref } from "vue";
 import * as Vue from "vue";
@@ -60,7 +60,7 @@ export default {
     TodoList,
     GraphView,
     TodoHistory,
-    TodoModal
+    TodoModal,
   },
   data() {
     return {
