@@ -25,7 +25,7 @@
 
         <b-form-input v-else class="sm-8 md-4" autofocus autocomplete="off" placeholder="What needs to be done?"
             v-model="newTodo" @keyup.enter="addTodo" />
-            <b-form-checkbox  style="padding-left:20px;"  v-model="typehead">
+            <b-form-checkbox  style="padding-left:20px;"  title="Check to use typehead autocomplete input. See more/help if needed"  v-model="typehead">
             </b-form-checkbox>
         </span>
 </template>
