@@ -25,24 +25,18 @@
     <b-offcanvas v-model="show" bodyScrolling="true" :title="y_store.todos.length + ' noos'">
       <TodoList />
     </b-offcanvas>
-    <b-modal @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name"> [[ links ]]
-      {{ currentTemp }}
 
-      <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
-        min="1" max="10" step="1" value="1"></b-form-input>
-
-
-
-    </b-modal>
-
-    <div v-if="debug">
+    <TodoModal />
+    <!-- <div v-if="debug">
       current : {{ current }} n
       {{ currentModal }}
-    </div>
+    </div> -->
   </main>
 </template>
 
 <script>
+
+import { y_store } from "@/y_store/index.js";
 // import { store } from "@/store";
 //import { ref } from "vue";
 import * as Vue from "vue";
@@ -52,7 +46,9 @@ import NavBar from '@/components/NavBar.vue'
 import GraphView from '@/views/GraphView.vue'
 import TodoList from '@/components/TodoList.vue'
 import TodoHistory from '@/components/TodoHistory.vue'
-import { y_store } from "@/y_store/index.js";
+import TodoModal from '@/components/TodoModal.vue'
+
+
 // make SyncedStore use Vuejs internally
 enableVueBindings(Vue);
 
@@ -63,35 +59,24 @@ export default {
     // TodoInput,
     TodoList,
     GraphView,
-    TodoHistory
+    TodoHistory,
+    TodoModal
   },
   data() {
     return {
       show: false,
-      y_store,
-      currentModal: false,
-      currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes !" }, // annonce au démarrage
-      debug: false
+      y_store
+      // todoModalShow: false,
+      // debug: false,
+      // updatedText: ''
     }
   },
-  methods: {
-    updateNode() {
-      console.log(this.currentTemp)
-      this.$store.commit('core/updateNode', this.currentTemp)
-    },
-  },
-  watch: {
-    current() {
-      console.log(this.current)
-      this.currentTemp = { ...this.current }
-      delete this.currentTemp.__threeObj
-      this.currentModal = this.current != null
-    }
-  },
+
+
   computed: {
-    current() {
-      return this.$store.state.core.current
-    },
+    // current() {
+    //   return this.$store.state.core.current
+    // },
     user() {
       return this.$store.state.core.user
     }
@@ -189,5 +174,15 @@ button:hover {
 button:active {
   color: #000000;
   background-color: rgba(0, 255, 255, 0.75);
+}
+
+blockquote {
+  background: #eee;
+  border-radius: 5px;
+  margin: 16px 0;
+}
+
+blockquote p {
+  padding: 15px;
 }
 </style>
