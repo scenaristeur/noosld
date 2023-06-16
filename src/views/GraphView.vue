@@ -39,7 +39,7 @@ export default {
             this.graph = ForceGraph3D()(this.$refs.graph)
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
-               .height(window.innerHeight - 64)
+                .height(window.innerHeight - 64)
                 // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
                 .nodeAutoColorBy('completed')
@@ -119,7 +119,7 @@ export default {
         },
         focus(node) {
             console.log(node)
-
+            this.$store.commit('core/setCurrent', node)
             // Aim at node from outside it
             const distance = 40;
             const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);

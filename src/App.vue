@@ -1,7 +1,6 @@
 <template>
   <main id="app">
     <NavBar />
-
     <GraphView />
     <div id="menu">
       <!-- <button id="table">mode input typehead</button>
@@ -9,12 +8,28 @@
       <!-- <button id="helix">HELIX</button>
       <button id="grid">GRID</button> -->
       <button @click="show = !show">NOOS</button>
+      <b-dropdown v-model="show" text="Dropdown Button">
+        <b-dropdown-item>First Action</b-dropdown-item>
+        <b-dropdown-item>Second Action</b-dropdown-item>
+        <b-dropdown-item>Third Action</b-dropdown-item>
+        <b-dropdown-divider />
+        <b-dropdown-item active>Active action</b-dropdown-item>
+        <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+      </b-dropdown>
 
 
     </div>
     <b-offcanvas v-model="show" bodyScrolling="true" :title="y_store.todos.length + ' noos'">
       <TodoList />
     </b-offcanvas>
+    <b-modal v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name"> [[ links ]]
+      {{ currentTemp }}
+    </b-modal>
+
+    <div v-if="debug">
+      current : {{ current }} n
+      {{ currentModal }}
+    </div>
   </main>
 </template>
 
@@ -42,7 +57,26 @@ export default {
   data() {
     return {
       show: false,
-      y_store
+      y_store,
+      currentModal: false,
+      currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes !" }, // annonce au démarrage
+      debug: false
+    }
+  },
+  watch: {
+    current() {
+      console.log(this.current)
+      this.currentTemp = { ...this.current }
+      delete this.currentTemp.__threeObj
+      this.currentModal = this.current != null
+    }
+  },
+  computed: {
+    current() {
+      return this.$store.state.core.current
+    },
+    user() {
+      return this.$store.state.core.user
     }
   }
   // data() {
