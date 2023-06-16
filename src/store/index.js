@@ -5,6 +5,8 @@ import { WebsocketProvider } from "y-websocket";
 // import { MatrixProvider } from "matrix-crdt";
 // import sdk from "matrix-js-sdk";
 
+
+
 // (optional, define types for TypeScript)
 //type Todo = { completed: boolean, title: string };
 
@@ -18,6 +20,29 @@ export const indexDBprovider = new IndexeddbPersistence("noosld", doc);
 export const websocketProvider = new WebsocketProvider("wss://yjs-leveldb.glitch.me/noosphere", "noosld", doc);
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
+
+
+
+// All of our network providers implement the awareness crdt
+export const awareness = websocketProvider.awareness
+
+// You can observe when a user updates their awareness information
+awareness.on('change', changes => {
+    console.log(changes)
+  // Whenever somebody updates their awareness information,
+  // we log all awareness information from all users.
+  console.log("Awareness",Array.from(awareness.getStates().values()))
+})
+
+// You can think of your own awareness information as a key-value store.
+// We update our "user" field to propagate relevant user information.
+awareness.setLocalStateField('user', {
+  // Define a print name that should be displayed
+  name: 'Emmanuelle Charpentier',
+  // Define a color that should be associated to the user:
+  color: '#ffb61e' // should be a hex color
+})
+
 
 
 // // See https://matrix.org/docs/guides/usage-of-the-matrix-js-sdk

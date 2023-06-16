@@ -9,6 +9,8 @@
 npm install
 ```
 
+
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
@@ -26,3 +28,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Techstack
+- vue3
+- yjs /syncedstore
+- bootstarp-vue https://bootstrap-vue-next.github.io/bootstrap-vue-next/docs/components/button.html

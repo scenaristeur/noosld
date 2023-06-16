@@ -6,6 +6,7 @@
 import ForceGraph3D from '3d-force-graph';
 import { store } from "@/store";
 import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
+import * as elementResizeDetectorMaker from "element-resize-detector";
 
 export default {
     name: "GraphView",
@@ -35,14 +36,20 @@ export default {
             //         target: Math.round(Math.random() * (id - 1))
             //     }))
 
-
             this.graph = ForceGraph3D()(this.$refs.graph)
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
+                .height(window.innerHeight - 64)
+                // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
                 .nodeAutoColorBy('completed')
 
             this.graph.graphData({ nodes: this.nodes, links: this.links })
+
+            elementResizeDetectorMaker().listenTo(
+                this.$refs.graph,
+                el => this.graph.width(el.offsetWidth)
+            );
         },
         changed(data) {
             console.log("foreach", data)
