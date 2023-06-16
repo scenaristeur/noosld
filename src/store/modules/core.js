@@ -24,6 +24,9 @@ const mutations = {
     state.history = history;
     console.log(history);
   },
+  updateNode(n){
+    console.log("todo find node byId and update",n)
+  }
 };
 
 const actions = {};

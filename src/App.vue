@@ -25,8 +25,14 @@
     <b-offcanvas v-model="show" bodyScrolling="true" :title="y_store.todos.length + ' noos'">
       <TodoList />
     </b-offcanvas>
-    <b-modal v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name"> [[ links ]]
+    <b-modal @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name"> [[ links ]]
       {{ currentTemp }}
+
+      <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
+        min="1" max="10" step="1" value="1"></b-form-input>
+
+
+
     </b-modal>
 
     <div v-if="debug">
@@ -67,6 +73,12 @@ export default {
       currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes !" }, // annonce au démarrage
       debug: false
     }
+  },
+  methods: {
+    updateNode() {
+      console.log(this.currentTemp)
+      this.$store.commit('core/updateNode', this.currentTemp)
+    },
   },
   watch: {
     current() {
