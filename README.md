@@ -3,6 +3,8 @@
 - todo advanced https://syncedstore.org/docs/advanced/text
 - https://syncedstore.org/docs/api/ API
 
+- [ ] type head https://www.npmjs.com/package/vue3-simple-typeahead or https://www.vuescript.com/vuejs-typeahead-auto-complete/
+
 
 ## Project setup
 ```

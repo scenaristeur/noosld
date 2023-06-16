@@ -30,6 +30,14 @@
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
+
+
+            <b-nav-item-dropdown text="more" right>
+              <b-dropdown-item href="#">help</b-dropdown-item>
+              <b-dropdown-item href="#">build your NoosLd</b-dropdown-item>
+            </b-nav-item-dropdown>
+
+
           </b-navbar-nav>
           <b-nav-form class="d-flex">
             
