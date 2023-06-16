@@ -1,21 +1,24 @@
 <template>
   <main id="app">
     <NavBar />
+    user : {{ user }}
+    <TodoHistory />
     <GraphView />
+
     <div id="menu">
       <!-- <button id="table">mode input typehead</button>
       <button id="sphere">mode input basic dropdown</button> -->
       <!-- <button id="helix">HELIX</button>
       <button id="grid">GRID</button> -->
       <button @click="show = !show">NOOS</button>
-      <b-dropdown v-model="show" text="Dropdown Button">
+      <!-- <b-dropdown v-model="show" text="Dropdown Button">
         <b-dropdown-item>First Action</b-dropdown-item>
         <b-dropdown-item>Second Action</b-dropdown-item>
         <b-dropdown-item>Third Action</b-dropdown-item>
         <b-dropdown-divider />
         <b-dropdown-item active>Active action</b-dropdown-item>
         <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-      </b-dropdown>
+      </b-dropdown> -->
 
 
     </div>
@@ -42,6 +45,7 @@ import { enableVueBindings, /*observeDeep, getYjsValue*/ } from "@syncedstore/co
 import NavBar from '@/components/NavBar.vue'
 import GraphView from '@/views/GraphView.vue'
 import TodoList from '@/components/TodoList.vue'
+import TodoHistory from '@/components/TodoHistory.vue'
 import { y_store } from "@/y_store/index.js";
 // make SyncedStore use Vuejs internally
 enableVueBindings(Vue);
@@ -52,7 +56,8 @@ export default {
     NavBar,
     // TodoInput,
     TodoList,
-    GraphView
+    GraphView,
+    TodoHistory
   },
   data() {
     return {
