@@ -1,10 +1,10 @@
 <template>
     <div>
-        {{ store.todos.length }}
+        {{ y_store.todos.length }}
 
         <b-list-group class="todo-list">
             <b-list-group-item
-             v-for="todo in Array.from(store.todos).reverse()" class="todo"
+             v-for="todo in Array.from(y_store.todos).reverse()" class="todo"
               :key="todo.id">
               <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" >
                 {{ todo.name }}
@@ -18,7 +18,7 @@
           </b-list-group>
 
     <ul class="todo-list">
-        <li v-for="todo in Array.from(store.todos).reverse()" class="todo" :key="todo.id">
+        <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo.id">
             <div class="view">
                     <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" >
                     {{ todo.name }}
@@ -34,20 +34,20 @@
 </template>
 
 <script>
-import { store } from "@/store";
+import { y_store } from "@/y_store/index.js";
 export default {
     name: "TodoList",
     data() {
         return {
-            store, // Put the store on the data() of the component
+            y_store, // Put the store on the data() of the component
         };
     },
     methods: {
         removeTodo(todo) {
-            this.store.todos.splice(this.store.todos.indexOf(todo), 1);
+            this.y_store.todos.splice(this.y_store.todos.indexOf(todo), 1);
         },
         since(value) {
-            // const array = getYjsValue(this.store.todos);
+            // const array = getYjsValue(this.y_store.todos);
             // console.log(array)
             return this.secondsToHms((new Date() - new Date(value)) / 1000)
         },

@@ -4,7 +4,7 @@
 
 <script>
 import ForceGraph3D from '3d-force-graph';
-import { store } from "@/store";
+import { y_store } from "@/y_store/index.js";
 import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
 import * as elementResizeDetectorMaker from "element-resize-detector";
 
@@ -12,7 +12,7 @@ export default {
     name: "GraphView",
     data() {
         return {
-            store,
+            y_store,
             nodes: [],
             links: [],
             graph: null
@@ -20,11 +20,11 @@ export default {
     },
     mounted() {
         this.init()
-        observeDeep(this.store.todos, this.changed)
+        observeDeep(this.y_store.todos, this.changed)
     },
     methods: {
         init() {
-            let todos = this.store.todos.toJSON()
+            let todos = this.y_store.todos.toJSON()
             console.log(todos)
 
             //const N = todos.length
@@ -39,7 +39,7 @@ export default {
             this.graph = ForceGraph3D()(this.$refs.graph)
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
-                .height(window.innerHeight - 64)
+               .height(window.innerHeight - 64)
                 // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
                 .nodeAutoColorBy('completed')
@@ -48,7 +48,10 @@ export default {
 
             elementResizeDetectorMaker().listenTo(
                 this.$refs.graph,
-                el => this.graph.width(el.offsetWidth)
+                el => {
+                    this.graph.width(el.offsetWidth)
+                    this.graph.height(el.offsetHeight)
+                }
             );
         },
         changed(data) {

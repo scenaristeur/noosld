@@ -11,10 +11,10 @@ import { WebsocketProvider } from "y-websocket";
 //type Todo = { completed: boolean, title: string };
 
 // Create your SyncedStore store
-export const store = syncedStore({ todos : [] , fragment: "xml"});
+export const y_store = syncedStore({ todos : [] , fragment: "xml"});
 
 // Create a document that syncs automatically using Y-WebRTC
-const doc = getYjsDoc(store);
+const doc = getYjsDoc(y_store);
 export const webrtcProvider = new WebrtcProvider("noosld", doc);
 export const indexDBprovider = new IndexeddbPersistence("noosld", doc);
 export const websocketProvider = new WebsocketProvider("wss://yjs-leveldb.glitch.me/noosphere", "noosld", doc);

@@ -12,7 +12,7 @@
 
 
     </div>
-    <b-offcanvas v-model="show"  bodyScrolling="true">
+    <b-offcanvas v-model="show"  bodyScrolling="true" :title="y_store.todos.length+ ' noos'">
       <TodoList />
     </b-offcanvas>
   </main>
@@ -27,6 +27,7 @@ import { enableVueBindings, /*observeDeep, getYjsValue*/ } from "@syncedstore/co
 import NavBar from '@/components/NavBar.vue'
 import GraphView from '@/views/GraphView.vue'
 import TodoList from '@/components/TodoList.vue'
+import { y_store } from "@/y_store/index.js";
 // make SyncedStore use Vuejs internally
 enableVueBindings(Vue);
 
@@ -40,7 +41,8 @@ export default {
   },
   data() {
     return {
-      show: false
+      show: false, 
+      y_store
     }
   }
   // data() {
@@ -50,7 +52,7 @@ export default {
   //   };
   // },
   // created() {
-  //   observeDeep(this.store.todos, this.changed)
+  //   observeDeep(this.y_store.todos, this.changed)
   // },
 
 };
