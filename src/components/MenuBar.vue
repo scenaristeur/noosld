@@ -1,9 +1,28 @@
 <template>
     <div>
+    
+
       <template v-for="(item, index) in items">
         <div class="divider" v-if="item.type === 'divider'" :key="`divider${index}`" />
         <menu-item v-else :key="index" v-bind="item" />
       </template>
+
+      <!-- replace with toolbar -->
+      <!-- <b-button-toolbar key-nav aria-label="Toolbar with button groups" size="sm">
+        <b-button-group class="mx-1" size="sm">
+          <b-button size="sm">&laquo;</b-button>
+          <b-button>&lsaquo;</b-button>
+        </b-button-group>
+        <b-button-group class="mx-1" size="sm">
+          <b-button>Edit</b-button>
+          <b-button size="sm">Undo</b-button>
+          <b-button>Redo</b-button>
+        </b-button-group>
+        <b-button-group class="mx-1" size="sm">
+          <b-button>&rsaquo;</b-button>
+          <b-button>&raquo;</b-button>
+        </b-button-group>
+      </b-button-toolbar> -->
     </div>
   </template>
   
