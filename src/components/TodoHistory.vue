@@ -5,7 +5,7 @@
         <div v-if="showHistory">
           
             <b-list-group>
-                <b-list-group-item v-for="todo in history.reverse()" :key="todo.id" :title="todo.group" button
+                <b-list-group-item v-for="todo in history" :key="todo.id" :title="todo.group" button
                     @click="setCurrent(todo)" :active="todo.id == current.id" variant="dark" flush>
                     <small>{{ todo.name }}</small>
                 </b-list-group-item>
@@ -22,7 +22,8 @@ export default {
     name: "TodoHistory",
     data() {
         return {
-            showHistory: true
+            showHistory: true,
+            todos: []
         }
     },
     methods: {
@@ -31,6 +32,11 @@ export default {
             this.$store.commit('core/setCurrent', todo)
         }
     },
+//     watch:{
+// history(){
+//     this.todos= this.history.reverse()
+// }
+//     },
     computed: {
         history() {
             return this.$store.state.core.history
@@ -49,7 +55,7 @@ export default {
     right: 0px;
     top: 100px;
     width: 100px;
-    z-index: 10;
+    z-index: 2;
 }
 
 b-list-group-item {

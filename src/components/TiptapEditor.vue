@@ -69,13 +69,14 @@ export default {
     },
 
     mounted() {
-
+        //this.createEditor()
     },
 
     methods: {
         init() {
-           // this.editor.destroy()
-          //  this.provider.destroy()
+            // this.editor.destroy()
+            //  this.provider.destroy()
+            // this.editor != null ? this.editor.commands.clearContent(true) : ""
             console.log("init in room", this.room)
             const ydoc = new Y.Doc()
 
@@ -151,6 +152,7 @@ export default {
     },
 
     beforeUnmount() {
+        console.log("unmount")
         this.editor.destroy()
         this.provider.destroy()
     },
@@ -158,6 +160,10 @@ export default {
         current() {
             console.log(this.current.id)
             this.room = this.current.id
+            if (this.editor != null) {
+                this.editor.destroy()
+                this.provider.destroy()
+            }
             this.init()
         }
     },

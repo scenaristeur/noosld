@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunknoosld"]=self["webpackChunknoosld"]||[]).push([[443],{8224:function(e,n,s){s.r(n),s.d(n,{default:function(){return i}});var t=s(8473);const r={class:"about"},o=(0,t._)("h1",null,"NoosLd, explore les idées des autres et partage les tiennes !",-1),u=[o];function a(e,n){return(0,t.wg)(),(0,t.iD)("div",r,u)}var l=s(5312);const c={},d=(0,l.Z)(c,[["render",a]]);var i=d}}]);
+//# sourceMappingURL=about.2e7dcd4d.js.map

@@ -1,20 +1,12 @@
 <template>
     <b-modal size="xl" @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name">
         <TiptapEditor />
-        text:
-        <blockquote>
-            <p contenteditable @input="onInput" ref="editableText">
-                {{ currentTemp.text }}
-            </p>
-            <!-- <p ref="updatedText">{{ currentTemp.text ? currentTemp.text : "[add node text]" }}</p> -->
-        </blockquote>
-
-        <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
+        <!-- <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
             min="1" max="10" step="1"></b-form-input>
         <hr>
         link to [[ links ]] / add link
         <hr>
-        {{ currentTemp }}
+        {{ currentTemp }} -->
     </b-modal>
 </template>
 
@@ -29,32 +21,29 @@ export default {
     },
     data() {
         return {
-            currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes !" }, // annonce au démarrage
+            currentTemp: { name: "NoosLd, explore les idées des autres et partage les tiennes ! or should show last" }, // annonce au démarrage
             y_store,
             currentModal: false
         }
     },
     methods: {
         updateNode() {
-            console.log(this.$refs.editableText.innerText)
-            let text = this.$refs.editableText.innerText.trim()
+            // console.log(this.$refs.editableText.innerText)
+            // let text = this.$refs.editableText.innerText.trim()
 
-            console.log(this.currentTemp)
-            //this.$store.commit('core/updateNode', this.currentTemp)
-            console.log(this.y_store.todos.toJSON())
-            let y_todo = this.y_store.todos.find(t => t.id == this.currentTemp.id)
-            console.log("y_todo", y_todo)
-            if (text.length > 0 && text != y_todo.text) {
-                y_todo.text = text
-            }
-            console.log(this.y_store.todos.toJSON())
+            // console.log(this.currentTemp)
+            // //this.$store.commit('core/updateNode', this.currentTemp)
+            // console.log(this.y_store.todos.toJSON())
+            // let y_todo = this.y_store.todos.find(t => t.id == this.currentTemp.id)
+            // console.log("y_todo", y_todo)
+            // if (text.length > 0 && text != y_todo.text) {
+            //     y_todo.text = text
+            // }
+            // console.log(this.y_store.todos.toJSON())
             this.currentModal = false
 
         },
-        onInput(e) {
-            console.log(e.target.innerText);
-            // this.currentTemp.text = e.target.innerText
-        },
+    
     },
     watch: {
         currentTemp() {
