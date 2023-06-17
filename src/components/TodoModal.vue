@@ -1,6 +1,7 @@
 <template>
     <b-modal size="xl" @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name">
         <TiptapEditor />
+        [links] [commentaires persos]
         <!-- <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
             min="1" max="10" step="1"></b-form-input>
         <hr>

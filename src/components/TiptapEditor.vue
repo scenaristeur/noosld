@@ -18,7 +18,7 @@
                 </button>
             </div>
         </div>
-        current: {{ current.id }} {{ current.name }}
+        <!-- current: {{ current.id }} {{ current.name }} -->
     </div>
 </template>
 
@@ -41,11 +41,11 @@ const getRandomElement = list => {
     return list[Math.floor(Math.random() * list.length)]
 }
 
-const getRandomRoom = () => {
-    const roomNumbers = /*variables.collabRooms?.trim()?.split(',') ??*/[10, 11, 12]
+// const getRandomRoom = () => {
+//     const roomNumbers = /*variables.collabRooms?.trim()?.split(',') ??*/[10, 11, 12]
 
-    return getRandomElement(roomNumbers.map(number => `rooms.${number}`))
-}
+//     return getRandomElement(roomNumbers.map(number => `rooms.${number}`))
+// }
 
 
 
@@ -64,7 +64,7 @@ export default {
             provider: null,
             editor: null,
             status: 'connecting',
-            room: getRandomRoom(),
+            room: null//getRandomRoom(),
         }
     },
 

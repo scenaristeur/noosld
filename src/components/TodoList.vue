@@ -3,34 +3,45 @@
         {{ y_store.todos.length }}
 
         <b-list-group class="todo-list">
-            <b-list-group-item
-             v-for="todo in Array.from(y_store.todos).reverse()" class="todo"
-              :key="todo.id">
-              <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" >
-                {{ todo.name }}
-                <b-button  size="sm" @click="removeTodo(todo)" variant="outline-warning">X</b-button> &nbsp;
-                <small><i>{{ since(todo.created) }}</i></small>
-            </b-form-checkbox>
-            
+            <b-list-group-item button v-for="todo in Array.from(y_store.todos).reverse()" class="todo"
+                @click="clickTodo(todo)" :key="todo.id">
+                <div class="row">
+                    <div class="col"> <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" @click.stop>
+                    </b-form-checkbox>
+                </div>
+                 
+                    <div class="col"> <b>{{ todo.name }}</b></div>
+                    <div class="col"> <b-button v-if="canRemove" size="sm" @click="removeTodo(todo)"
+                            variant="outline-warning">X</b-button> &nbsp;
+                        <small><i>{{ since(todo.created) }}</i></small>
+                    </div>
+                    <div class="col">
+                        
+                        <b-form-checkbox class="toggle" type="checkbox" v-model="userCheck" @click.stop
+                            variant="success"> me
+                        </b-form-checkbox>
+                    </div>
+                </div>
             </b-list-group-item>
 
-            
-          </b-list-group>
 
-    <ul class="todo-list">
-        <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo.id">
-            <div class="view">
-                    <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" >
-                    {{ todo.name }}
-                    <b-button  size="sm" @click="removeTodo(todo)" variant="outline-warning">X</b-button> &nbsp;
-                    <small><i>{{ since(todo.created) }}</i></small>
-                </b-form-checkbox>
-          
+        </b-list-group>
 
-            </div>
-        </li>
-    </ul>
-</div>
+        <ul class="todo-list">
+            <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo.id">
+                <div class="view">
+                    <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed">
+                        {{ todo.name }}
+                        <b-button size="sm" v-if="canRemove" @click="removeTodo(todo)"
+                            variant="outline-warning">X</b-button> &nbsp;
+                        <small><i>{{ since(todo.created) }}</i></small>
+                    </b-form-checkbox>
+
+
+                </div>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -40,9 +51,14 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
+            canRemove: false
         };
     },
     methods: {
+        clickTodo(todo) {
+            console.log(todo)
+            this.$store.commit('core/setCurrent', todo)
+        },
         removeTodo(todo) {
             this.y_store.todos.splice(this.y_store.todos.indexOf(todo), 1);
         },
@@ -80,15 +96,15 @@ li button {
     margin-left: 1em;
 }
 
- .todo-list {
+.todo-list {
     background-color: #0B0B61;
     list-style-type: none;
     color: rgba(127, 255, 255, 0.75);
 
-  outline: 1px solid rgba(127, 255, 255, 0.75);
-  border: 0px;
-  padding: 5px 10px;
-  cursor: pointer;
+    outline: 1px solid rgba(127, 255, 255, 0.75);
+    border: 0px;
+    padding: 5px 10px;
+    cursor: pointer;
     padding-left: 0px;
-} 
+}
 </style>
