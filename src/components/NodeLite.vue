@@ -3,7 +3,7 @@
     <!-- {{node}} Lite <hr>
     {{liteNode}} -->
     <b-button v-if="liteNode" size="sm" variant="info" @click="editNode">{{liteNode['ve:name']}}</b-button>
-    <b-alert v-else show variant="warning">Oh oh, it seems that node with id {{node.id}} as been deleted :-(</b-alert>
+    <b-alert v-else show variant="warning">Oh oh, it seems that node with id {{node['@id']}} as been deleted :-(</b-alert>
   </div>
 </template>
 

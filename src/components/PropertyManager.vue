@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentTemp != undefined">
+  <div v-if="currentTemp != null">
     <hr>
     <b-row v-for="p in currentTemp['ve:properties']" :key="p.name">
       <b-col sm="3">
@@ -108,6 +108,7 @@ export default {
   },
   data() {
     return {
+      currentTemp: null,
       field: null,
       clearing: false,
       fieldModal: false,
@@ -119,7 +120,27 @@ export default {
   },
   methods: {
     addValue() {
+      console.log("current prop", this.currentProp, this.currentProp.name)
       console.log("Add value", this.newvalue, this.link, this.currentProp)
+      // newvalue
+      if (this.newvalue != null) {
+        let val = { value: this.newvalue, type: 'textarea' }
+        console.log("addNewValue", val)
+        this.currentProp.values.push(val)
+        this.newvalue = null
+      }
+
+      //link
+      if (this.link.href != undefined) {
+        this.link.name == undefined ? this.link.name = this.link.href : "p"
+        let val = { value: this.link, type: 'link' }
+        this.currentProp.values.push(val)
+        this.link = {}
+      }
+
+      // node
+
+
     },
     add() {
       this.field = { name: "" }
@@ -147,19 +168,19 @@ export default {
       this.currentProp = p
       this.fieldModal = true
     },
-    addNewValue() {
+    // addNewValue() {
 
-      let val = { value: this.newvalue, type: this.fieldType }
-      console.log("addNewValue", val)
-      this.currentProp.values.push(val)
-      this.newvalue = null
-    },
-    addNewLink() {
-      //console.log(this.link)
-      let val = { value: this.link, type: this.fieldType }
-      this.currentProp.values.push(val)
-      this.link = {}
-    },
+    //   let val = { value: this.newvalue, type: this.fieldType }
+    //   console.log("addNewValue", val)
+    //   this.currentProp.values.push(val)
+    //   this.newvalue = null
+    // },
+    // addNewLink() {
+    //   //console.log(this.link)
+    //   let val = { value: this.link, type: this.fieldType }
+    //   this.currentProp.values.push(val)
+    //   this.link = {}
+    // },
     async save() {
       await this.$store.dispatch('nodes/saveNode', this.node);
       this.$store.commit('nodes/setCurrentNode', null)

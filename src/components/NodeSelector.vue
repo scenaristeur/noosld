@@ -98,7 +98,7 @@ import { y_store } from "@/y_store/index.js";
     methods: {
       onOptionClick({ option, addTag }) {
         console.log(option)
-        let n = {'@id': option['@id'], 've:type': 'todo'}
+        let n = {'@id': option['@id'], 've:type': 'node'}
         // eslint-disable-next-line
         this.currentProp.values.push(n)
         addTag(option['ve:name'])
