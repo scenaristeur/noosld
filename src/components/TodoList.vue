@@ -11,7 +11,8 @@
                 </div>
                  
                     <div class="col"> <b>{{ todo['ve:name'] }}</b></div>
-                    <div class="col"> <b-button v-if="canRemove" size="sm" @click="removeTodo(todo)"
+                    <div class="col"> 
+                        <b-button v-if="canRemove" size="sm" @click.stop="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
                         <small><i>{{ since(todo['ve:created']) }}</i></small>
                     </div>
@@ -32,7 +33,7 @@
                 <div class="view">
                     <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']">
                         {{ todo['ve:name'] }}
-                        <b-button size="sm" v-if="canRemove" @click="removeTodo(todo)"
+                        <b-button size="sm" v-if="canRemove" @click.stop="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
                         <small><i>{{ since(todo['ve:created']) }}</i></small>
                     </b-form-checkbox>
@@ -51,7 +52,7 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
-            canRemove: true
+            canRemove: false
         };
     },
     methods: {

@@ -1,10 +1,17 @@
 <template>
     <div>
-        <SimpleTypeahead id="typeahead_id" autofocus placeholder="link to ..."
-            :items="Array.from(y_store.todos).reverse().map(x => x.name)" :minInputLength="1"
-            :itemProjection="itemProjectionFunction" @selectItem="selectItemEventHandler" @onInput="onInputEventHandler"
-            @onFocus="onFocusEventHandler" @onBlur="onBlurEventHandler" selectOnTab="false" v-model="newTodo"
-            @keyup.enter="addTodo">
+        <!--
+                  :itemProjection="itemProjectionFunction"
+             @selectItem="selectItemEventHandler"
+              @onInput="onInputEventHandler"
+            @onFocus="onFocusEventHandler"
+             @onBlur="onBlurEventHandler"
+              selectOnTab="false"
+               v-model="newTodo"
+            @keyup.enter="addTodo"
+        -->
+        <SimpleTypeahead id="typeahead_id" autofocus placeholder="link to ..." :itemProjection="itemProjectionFunction"
+            :items="Array.from(y_store.todos).reverse()" :minInputLength="1">
             <template #list-header>
                 <div class="simple-typeahead-list-header">[use as subject]</div>
             </template>
@@ -37,6 +44,11 @@ export default {
             typehead: false
         }
     },
+    methods: {
+        itemProjectionFunction(i) {
+            return i['ve:name']
+        }
+    }
 }
 </script>
 
