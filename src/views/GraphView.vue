@@ -46,6 +46,9 @@ export default {
                 // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
                 .nodeAutoColorBy('ve:completed')
+                .linkDirectionalArrowLength(3.5)
+                .linkDirectionalArrowRelPos(1)
+                .linkCurvature(0.25);
 
             this.graph.graphData({ nodes: this.nodes, links: this.links })
 
@@ -86,6 +89,27 @@ export default {
                     } else {
                         this.nodes.push(element)
                     }
+                    if (element['ve:properties'] != undefined) {
+
+
+                        let properties = element['ve:properties']
+                        console.log("properties", properties)
+                        properties.forEach(p => {
+                            let name = p.name
+                            let values = p.values
+                            values.forEach(v => {
+                                if (v.type == 'node') {
+                                    let link = { source: element['@id'], target: v['@id'], name: name }
+                                    console.log("Link", link)
+                                    this.links.push(link)
+                                }
+                            })
+                        })
+
+                    }
+
+
+
                 });
 
                 this.nodes.forEach(node => {

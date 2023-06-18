@@ -6,20 +6,21 @@
             <b-list-group-item button v-for="todo in Array.from(y_store.todos).reverse()" class="todo"
                 @click="clickTodo(todo)" :key="todo['@id']">
                 <div class="row">
-                    <div class="col"> <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']" @click.stop>
-                    </b-form-checkbox>
-                </div>
-                 
+                    <div class="col"> <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']"
+                            @click.stop>
+                        </b-form-checkbox>
+                    </div>
+
                     <div class="col"> <b>{{ todo['ve:name'] }}</b></div>
-                    <div class="col"> 
+                    <div class="col">
                         <b-button v-if="canRemove" size="sm" @click.stop="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
                         <small><i>{{ since(todo['ve:created']) }}</i></small>
                     </div>
                     <div class="col">
-                        
-                        <b-form-checkbox class="toggle" type="checkbox" v-model="userCheck" @click.stop
-                            variant="success"> me
+
+                        <b-form-checkbox class="toggle" type="checkbox" v-model="userCheck[todo['@id']]" @click.stop variant="success">
+                            me
                         </b-form-checkbox>
                     </div>
                 </div>
@@ -52,7 +53,8 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
-            canRemove: false
+            canRemove: true,
+             userCheck: {}
         };
     },
     methods: {

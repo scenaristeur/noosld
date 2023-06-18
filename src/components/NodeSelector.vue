@@ -1,9 +1,9 @@
 <template>
   <b-form-group>
     <b-form-tags id="tags-with-dropdown" v-model="value" no-outer-focus class="mb-2">
-   
+
       <template v-slot="{ tags, disabled, addTag, removeTag }">
-      
+
         <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="tag" class="list-inline-item">
             {{ tag }}
@@ -14,7 +14,7 @@
 
         <b-dropdown size="sm" variant="outline-secondary" block menu-class="w-100">
           <template #button-content>
-            <b-icon icon="tag-fill"></b-icon> Choose todo
+            Choose todo
           </template>
           <b-dropdown-form @submit.stop.prevent="() => { }">
             <b-form-group label="Search todo" label-for="tag-search-input" label-cols-md="auto" class="mb-0"
