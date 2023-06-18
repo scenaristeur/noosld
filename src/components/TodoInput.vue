@@ -76,6 +76,7 @@ export default {
                         "ve:privacy": "private",
                             "ve:type": "node",
                             "ve:group": "todo",
+                            "ve:val" : 1,
                                 "ve:properties": [],
                                     "test": "test vocab",
                                     "ve:completed": false,

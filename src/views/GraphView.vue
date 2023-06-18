@@ -39,6 +39,7 @@ export default {
             this.graph = ForceGraph3D()(this.$refs.graph)
                 .nodeId(['@id'])
                 .nodeLabel('ve:name')
+                .nodeVal('ve:val')
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
                 .height(window.innerHeight - 64)

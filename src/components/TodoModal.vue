@@ -4,12 +4,13 @@
     v-model="currentModal"
      :title="currentTemp['ve:group'] + '/' + currentTemp['ve:name']">
         <TiptapEditor />
+
         [links] [commentaires persos]
 
         <LinkManager />
-        <!-- <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
-            min="1" max="10" step="1"></b-form-input>
-        <hr>
+     <div class="mt-2">Val /size : {{ currentTemp['ve:val'] }}</div> <b-form-input v-model="currentTemp['ve:val']" type="range"
+            min="1" max="100" step="1"></b-form-input> 
+     <!--   <hr>
         link to [[ links ]] / add link
         <hr>
         {{ currentTemp }} -->
