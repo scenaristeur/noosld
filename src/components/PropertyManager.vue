@@ -27,8 +27,10 @@
 
     <b-row v-if="field != null" class="mt-3">
       <b-col sm="3">
-        <b-form-input @change="fieldNameChanged" v-model="field.name" required placeholder="property name"
+        <b-form-input v-model="field.name" autofocus autocomplete="off" required placeholder="property name"
           @keyup.enter="fieldNameChanged" />
+
+
       </b-col>
       <b-col sm="9">
         <b-button variant="outline-secondary" size="sm" @click="clear_field">X</b-button>
@@ -48,22 +50,18 @@
 
 
 
-    <b-modal v-model="fieldModal" size="xl" :title="currentTemp['ve:name'] + ' -> ' + currentProp.name">
+    <b-modal v-model="fieldModal" size="xl" :title="currentTemp['ve:name'] + ' -> ' + currentProp.name" @ok="addValue">
       <!-- {{ currentProp}} -->
       <b-tabs content-class="mt-3">
-        <b-tab title="text" active @click="fieldType = 'text'">
-          <b-form-input v-model="newvalue" placeholder="new value" @change="addNewValue" />
-        </b-tab>
-        <b-tab title="textarea" @click="fieldType = 'textarea'">
-          <b-form-textarea v-model="newvalue" placeholder="Enter something..." rows="3" max-rows="6"
-            @change="addNewValue"></b-form-textarea>
+        <b-tab title="text" @click="fieldType = 'textarea'">
+          <b-form-textarea v-model="newvalue" placeholder="Enter something..." rows="3" max-rows="6"></b-form-textarea>
         </b-tab>
         <b-tab title="node" @click="fieldType = 'node'">
-          <NodeSelector v-model="currentProp" />
+          <NodeSelector :currentProp="currentProp" />
         </b-tab>
         <b-tab title="link" @click="fieldType = 'link'">
           <b-form-input v-model="link.name" placeholder="name" />
-          <b-form-input v-model="link.href" placeholder="link" @change="addNewLink" />
+          <b-form-input v-model="link.href" placeholder="link" />
         </b-tab>
         <!-- <b-tab title="tiny" @click="fieldType = 'tiny'">
   
@@ -115,9 +113,14 @@ export default {
       fieldModal: false,
       currentProp: {},
       link: {},
+      newvalue: null,
+      fieldType: "text"
     }
   },
   methods: {
+    addValue() {
+      console.log("Add value", this.newvalue, this.link, this.currentProp)
+    },
     add() {
       this.field = { name: "" }
     },
@@ -131,6 +134,7 @@ export default {
         var index = this.currentTemp['ve:properties'].findIndex(x => x.name == p.name);
         index === -1 ? this.currentTemp['ve:properties'].push(p) : alert(p.name + " already exist")
       }
+      this.field = null
     },
     clear_field() {
       this.clearing = true
@@ -144,7 +148,9 @@ export default {
       this.fieldModal = true
     },
     addNewValue() {
+
       let val = { value: this.newvalue, type: this.fieldType }
+      console.log("addNewValue", val)
       this.currentProp.values.push(val)
       this.newvalue = null
     },

@@ -2,6 +2,7 @@
   <main id="app">
     <NavBar />
     user : {{ user }}
+    <!-- current : {{ current }} -->
     <TodoHistory />
     <GraphView />
 

@@ -52,7 +52,7 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
-            canRemove: false
+            canRemove: true
         };
     },
     methods: {

@@ -40,7 +40,7 @@
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item-button
               v-for="option in availableOptions"
-              :key="option.id"
+              :key="option['@id']"
               @click="onOptionClick({ option, addTag })"
             >
               {{ option['ve:name'] }}
@@ -98,7 +98,7 @@ import { y_store } from "@/y_store/index.js";
     methods: {
       onOptionClick({ option, addTag }) {
         console.log(option)
-        let n = {id: option.id, type: 'node'}
+        let n = {'@id': option['@id'], 've:type': 'todo'}
         // eslint-disable-next-line
         this.currentProp.values.push(n)
         addTag(option['ve:name'])
