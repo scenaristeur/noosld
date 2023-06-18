@@ -1,9 +1,12 @@
 <template>
-    <b-modal size="xl" @ok="updateNode" v-model="currentModal" :title="currentTemp.group + '/' + currentTemp.name">
+    <b-modal size="xl"
+     @ok="updateNode" 
+    v-model="currentModal"
+     :title="currentTemp['ve:group'] + '/' + currentTemp['ve:name']">
         <TiptapEditor />
         [links] [commentaires persos]
 
-        <LinkManager />
+        <!-- <LinkManager /> -->
         <!-- <div class="mt-2">Val /size : {{ currentTemp.val }}</div> <b-form-input v-model="currentTemp.val" type="range"
             min="1" max="10" step="1"></b-form-input>
         <hr>
@@ -16,13 +19,13 @@
 <script>
 import { y_store } from "@/y_store/index.js";
 import TiptapEditor from '@/components/TiptapEditor.vue'
-import LinkManager from '@/components/LinkManager.vue'
+// import LinkManager from '@/components/LinkManager.vue'
 
 export default {
     name: "TodoModal",
     components: {
         TiptapEditor,
-        LinkManager
+        // LinkManager
     },
     data() {
         return {

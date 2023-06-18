@@ -158,8 +158,8 @@ export default {
     },
     watch: {
         current() {
-            console.log(this.current.id)
-            this.room = this.current.id
+            console.log(this.current['@id'])
+            this.room = this.current['@id']
             if (this.editor != null) {
                 this.editor.destroy()
                 this.provider.destroy()

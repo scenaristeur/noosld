@@ -5,9 +5,9 @@
         <div v-if="showHistory">
           
             <b-list-group>
-                <b-list-group-item v-for="todo in history" :key="todo.id" :title="todo.group" button
-                    @click="setCurrent(todo)" :active="todo.id == current.id" variant="dark" flush>
-                    <small>{{ todo.name }}</small>
+                <b-list-group-item v-for="todo in history" :key="todo['@id']" :title="todo['ve:group']" button
+                    @click="setCurrent(todo)" :active="todo['@id'] == current['@id']" variant="dark" flush>
+                    <small>{{ todo['ve:name'] }}</small>
                 </b-list-group-item>
 
 

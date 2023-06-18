@@ -17,10 +17,10 @@ const mutations = {
   pushToHistory(state, n) {
     let h = state.history;
     console.log("avant", h);
-    let history = state.history.filter((todo) => todo.id != n.id);
+    let history = state.history.filter((todo) => todo['@id'] != n['@id']);
     console.log("après", history);
 
-    history.unshift({ id: n.id, name: n.name, group: n.group });
+    history.unshift({ '@id': n['@id'], 've:name': n['ve:name'], 've:group': n['ve:group'] });
     state.history = history;
     console.log(history);
   },

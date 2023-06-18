@@ -4,16 +4,16 @@
 
         <b-list-group class="todo-list">
             <b-list-group-item button v-for="todo in Array.from(y_store.todos).reverse()" class="todo"
-                @click="clickTodo(todo)" :key="todo.id">
+                @click="clickTodo(todo)" :key="todo['@id']">
                 <div class="row">
-                    <div class="col"> <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed" @click.stop>
+                    <div class="col"> <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']" @click.stop>
                     </b-form-checkbox>
                 </div>
                  
-                    <div class="col"> <b>{{ todo.name }}</b></div>
+                    <div class="col"> <b>{{ todo['ve:name'] }}</b></div>
                     <div class="col"> <b-button v-if="canRemove" size="sm" @click="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
-                        <small><i>{{ since(todo.created) }}</i></small>
+                        <small><i>{{ since(todo['ve:created']) }}</i></small>
                     </div>
                     <div class="col">
                         
@@ -28,13 +28,13 @@
         </b-list-group>
 
         <ul class="todo-list">
-            <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo.id">
+            <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo['@id']">
                 <div class="view">
-                    <b-form-checkbox class="toggle" type="checkbox" v-model="todo.completed">
-                        {{ todo.name }}
+                    <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']">
+                        {{ todo['ve:name'] }}
                         <b-button size="sm" v-if="canRemove" @click="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
-                        <small><i>{{ since(todo.created) }}</i></small>
+                        <small><i>{{ since(todo['ve:created']) }}</i></small>
                     </b-form-checkbox>
 
 
@@ -51,7 +51,7 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
-            canRemove: false
+            canRemove: true
         };
     },
     methods: {

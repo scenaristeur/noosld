@@ -1,12 +1,12 @@
 <template>
     <span style="display:flex;flex-direction: :row;">
-<!-- https://www.geeksforgeeks.org/how-to-make-div-elements-display-inline-using-css/ -->
+        <!-- https://www.geeksforgeeks.org/how-to-make-div-elements-display-inline-using-css/ -->
 
         <!-- <SimpleTypeahead id="typeahead_id" placeholder="Start writing..." :items="['One', 'Two', 'Three']" :minInputLength="1"
             :itemProjection="itemProjectionFunction" @selectItem="selectItemEventHandler" @onInput="onInputEventHandler"
             @onFocus="onFocusEventHandler" @onBlur="onBlurEventHandler">
         </SimpleTypeahead> -->
-     
+
         <SimpleTypeahead v-if="typehead == true" id="typeahead_id" autofocus placeholder="What needs to be done? (th)"
             :items="Array.from(y_store.todos).reverse().map(x => x.name)" :minInputLength="1"
             :itemProjection="itemProjectionFunction" @selectItem="selectItemEventHandler" @onInput="onInputEventHandler"
@@ -25,10 +25,10 @@
 
         <b-form-input v-else class="sm-8 md-4" autofocus autocomplete="off" placeholder="What needs to be done?"
             v-model="newTodo" @keyup.enter="addTodo" />
-            <!-- should reactivate when nedded-->
-            <!-- <b-form-checkbox title="Check to use typehead autocomplete input. See more/help if needed"  v-model="typehead">
+        <!-- should reactivate when nedded-->
+        <!-- <b-form-checkbox title="Check to use typehead autocomplete input. See more/help if needed"  v-model="typehead">
             </b-form-checkbox> -->
-        </span>
+    </span>
 </template>
 
 <script>
@@ -56,13 +56,32 @@ export default {
             if (!value) {
                 return;
             }
-            this.y_store.todos.push({
-                id: uuidv4(),
-                name: value,
-                completed: false,
-                group: "todo",
-                created: Date.now()
-            });
+            // let todo = {
+            //     id: uuidv4(),
+            //     name: value,
+            //     completed: false,
+            //     group: "todo",
+            //     created: Date.now()
+            // }
+            let todo =  {
+                "@context": {
+                    "@vocab": "https://www.w3.org/ns/activitystreams#",
+                        "ve": "https://scenaristeur.github.io/verse#",
+                            "id": "@id",
+                                "type": "@type"
+                },
+                "@id": uuidv4(),
+                "ve:name": value,
+                    "ve:age": 0,
+                        "ve:privacy": "private",
+                            "ve:type": "node",
+                            "ve:group": "todo",
+                                "ve:properties": [],
+                                    "test": "test vocab",
+                                    "ve:completed": false,
+                                    "ve:created": Date.now()
+            }
+            this.y_store.todos.push(todo);
             this.newTodo = "";
         },
 

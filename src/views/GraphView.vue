@@ -37,12 +37,14 @@ export default {
             //     }))
 
             this.graph = ForceGraph3D()(this.$refs.graph)
+                .nodeId(['@id'])
+                .nodeLabel('ve:name')
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
                 .height(window.innerHeight - 64)
                 // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
-                .nodeAutoColorBy('completed')
+                .nodeAutoColorBy('ve:completed')
 
             this.graph.graphData({ nodes: this.nodes, links: this.links })
 
@@ -76,7 +78,7 @@ export default {
             if (Array.isArray(last)) {
                 last.forEach(element => {
                     console.log(element)
-                    let node_exist = this.nodes.find(({ id }) => id === element.id);
+                    let node_exist = this.nodes.find((node) => node['@id'] === element['@id']);
                     console.log("exist", node_exist)
                     if (node_exist != undefined) {
                         node_exist = { ...node_exist, ...element }
@@ -86,15 +88,15 @@ export default {
                 });
 
                 this.nodes.forEach(node => {
-                    let present = last.find(({ id }) => id === node.id)
+                    let present = last.find((node) => node['@id'] === node['@id']);
                     if (present == undefined) {
                         this.links = this.links.filter(l => l.source !== node && l.target !== node); // Remove links attached to node
-                        this.nodes = this.nodes.filter(n => n.id != node.id); // Remove node
+                        this.nodes = this.nodes.filter(n => n['@id'] != node['@id']); // Remove node
                     }
                 })
             } else {
                 //update one march pô
-                let node_exist = this.nodes.find(({ id }) => id === last.id);
+                let node_exist = this.nodes.find((node) => node['@id'] === last['@id']);
                 let merged = { ...node_exist, ...last }
                 node_exist = merged
             }
