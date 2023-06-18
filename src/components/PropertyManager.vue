@@ -44,7 +44,7 @@
         <b-button variant="outline-primary" size="sm" @click="add">+ add a property or a link</b-button>
       </b-col>
     </b-row>
-    <b-button variant="success" @click="save">Save currentTemp</b-button>
+    <!-- <b-button variant="success" @click="save">Save currentTemp</b-button> -->
 
 
 
@@ -86,13 +86,13 @@
       </b-tabs>
     </b-modal>
 
-    <hr>
+    <!-- <hr>
     {{ currentTemp['ve:properties'] }}
     <hr>
 
     {{ currentTemp }}
 
-    <hr>
+    <hr> -->
 
   </div>
 </template>
