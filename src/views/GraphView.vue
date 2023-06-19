@@ -4,7 +4,8 @@
 
 <script>
 import ForceGraph3D from '3d-force-graph';
-import { y_store } from "@/y_store/index.js";
+import { y_store, } from "@/y_store/index.js";
+import { areSame } from "@syncedstore/core";
 import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
 import * as elementResizeDetectorMaker from "element-resize-detector";
 
@@ -62,6 +63,7 @@ export default {
             );
         },
         changed(data) {
+            // see syncedstore api https://syncedstore.org/docs/api/
             console.log("CHANGED", data)
             let todos = this.y_store.todos.toJSON()
             console.log(todos)
@@ -71,6 +73,7 @@ export default {
                 let node_exist = this.nodes.find((node) => node['@id'] === t['@id']);
                 //   console.log("exist", node_exist)
                 if (node_exist != undefined) {
+                    console.log("are same ? ", areSame(node_exist, t))
                     node_exist = { ...node_exist, ...t }
                     console.log("node update", node_exist)
                 } else {
@@ -80,6 +83,24 @@ export default {
                 // console.log(props)
                 props.forEach(p => {
                     console.log(p)
+                    let name = p.name
+                    p.values.forEach(v => {
+                        console.log(name, v)
+                        if (v.type == "node") {
+                            let link = { source: t['@id'], target: v['@id'], name: p.name }
+                            // ??????????????
+                            // cette ligne donne moins de liens 
+                            // let link_exist = this.links.find((l) => l.source['@id'] == link.source['@id'] && l.target['@id'] == link.target['@id'] && l.name == link.name);
+                            // que cette ligne ? 
+                            let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
+                            console.log("link exist ?", link_exist)
+                            if (link_exist == undefined) {
+                                this.links.push(link)
+                                console.log("links", this.links)
+                            }
+
+                        }
+                    })
                 })
             })
 
