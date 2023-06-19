@@ -28,10 +28,10 @@ export const awareness = websocketProvider.awareness
 
 // You can observe when a user updates their awareness information
 awareness.on('change', changes => {
-    console.log(changes)
+   // console.log(changes)
   // Whenever somebody updates their awareness information,
   // we log all awareness information from all users.
-  console.log("Awareness",Array.from(awareness.getStates().values()))
+  console.log("Awareness",changes, Array.from(awareness.getStates().values()))
 })
 
 // You can think of your own awareness information as a key-value store.

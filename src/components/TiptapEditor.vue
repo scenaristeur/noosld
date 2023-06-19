@@ -23,7 +23,9 @@
 </template>
 
 <script>
-import { TiptapCollabProvider } from '@hocuspocus/provider'
+// import { TiptapCollabProvider } from '@hocuspocus/provider'
+import {  HocuspocusProvider } from '@hocuspocus/provider'
+
 import CharacterCount from '@tiptap/extension-character-count'
 import Collaboration from '@tiptap/extension-collaboration'
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor'
@@ -80,13 +82,22 @@ export default {
             console.log("init in room", this.room)
             const ydoc = new Y.Doc()
 
-            this.provider = new TiptapCollabProvider({
-                appId: '7j9y6m10',
+            // this.provider = new TiptapCollabProvider({
+            //     appId: '7j9y6m10',
+            //     name: this.room,
+            //     document: ydoc,
+            // })
+
+            this.provider = new HocuspocusProvider({
+                //appId: '7j9y6m10',
+                //url: "wss://hocus-noosphere.glitch.me",
+                url: "wss://noosld.glitch.me",
                 name: this.room,
                 document: ydoc,
             })
 
             this.provider.on('status', event => {
+                console.log(event)
                 this.status = event.status
             })
 

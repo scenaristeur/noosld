@@ -20,6 +20,9 @@ export default {
     },
     mounted() {
         this.init()
+        this.y_store.todos.observe((e) => {
+            console.log("tasks were modified", e);
+        });
         observeDeep(this.y_store.todos, this.changed)
     },
     methods: {
@@ -61,29 +64,29 @@ export default {
             );
         },
         changed(data) {
-            console.log("foreach", data)
-            console.log("entries", data.entries())
-            console.log("entries", data.every(e => {
-                console.log(e)
-            }))
-            console.log(data[0].target.toJSON())
-            console.log(data[0].transaction)
+            console.log("CHANGED", data[0].toJSON())
+            // console.log("entries", data.entries())
+            // console.log("entries", data.every(e => {
+            //     console.log(e)
+            // }))
+            // console.log(data[0].target.toJSON())
+            // console.log(data[0].transaction)
             // console.log(data[0].transaction.changed.entries().forEach(change => {
             //     console.log(change)
             // }))
-            console.log(data[0].transaction.changed.entries())
-            let iterator1 = data[0].transaction.changed.entries()
-            console.log(iterator1.next().value)
+            // console.log(data[0].transaction.changed.entries())
+            // let iterator1 = data[0].transaction.changed.entries()
+            // console.log(iterator1.next().value)
 
-            console.log("must just update, not the position")
+            // console.log("must just update, not the position")
 
             let last = data[0].target.toJSON()
-            console.log(Array.isArray(last), last)
+            // console.log(Array.isArray(last), last)
             if (Array.isArray(last)) {
                 last.forEach(element => {
                     console.log(element)
                     let node_exist = this.nodes.find((node) => node['@id'] === element['@id']);
-                    console.log("exist", node_exist)
+                    //   console.log("exist", node_exist)
                     if (node_exist != undefined) {
                         node_exist = { ...node_exist, ...element }
                     } else {
@@ -93,14 +96,14 @@ export default {
 
 
                         let properties = element['ve:properties']
-                        console.log("properties", properties)
+                        // console.log("properties", properties)
                         properties.forEach(p => {
                             let name = p.name
                             let values = p.values
                             values.forEach(v => {
                                 if (v.type == 'node') {
                                     let link = { source: element['@id'], target: v['@id'], name: name }
-                                    console.log("Link", link)
+                                    //  console.log("Link", link)
                                     this.links.push(link)
                                 }
                             })
