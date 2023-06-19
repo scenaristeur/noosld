@@ -20,9 +20,7 @@ export default {
     },
     mounted() {
         this.init()
-        this.y_store.todos.observe((e) => {
-            console.log("tasks were modified", e);
-        });
+
         observeDeep(this.y_store.todos, this.changed)
     },
     methods: {
@@ -64,7 +62,33 @@ export default {
             );
         },
         changed(data) {
-            console.log("CHANGED", data[0].toJSON())
+            console.log("CHANGED", data)
+            let todos = this.y_store.todos.toJSON()
+            console.log(todos)
+            todos.forEach(t => {
+                // let id = t['@id']
+                let props = t['ve:properties']
+                let node_exist = this.nodes.find((node) => node['@id'] === t['@id']);
+                //   console.log("exist", node_exist)
+                if (node_exist != undefined) {
+                    node_exist = { ...node_exist, ...t }
+                    console.log("node update", node_exist)
+                } else {
+                    console.log("node creation ", t)
+                    this.nodes.push(t)
+                }
+                // console.log(props)
+                props.forEach(p => {
+                    console.log(p)
+                })
+            })
+
+            this.graph.graphData({ nodes: this.nodes, links: this.links })
+
+
+        },
+        changed1(data) {
+            console.log("CHANGED", data)
             // console.log("entries", data.entries())
             // console.log("entries", data.every(e => {
             //     console.log(e)
@@ -88,8 +112,10 @@ export default {
                     let node_exist = this.nodes.find((node) => node['@id'] === element['@id']);
                     //   console.log("exist", node_exist)
                     if (node_exist != undefined) {
+                        console.log("exist", node_exist)
                         node_exist = { ...node_exist, ...element }
                     } else {
+                        console.log("not exist", element)
                         this.nodes.push(element)
                     }
                     if (element['ve:properties'] != undefined) {
@@ -103,7 +129,7 @@ export default {
                             values.forEach(v => {
                                 if (v.type == 'node') {
                                     let link = { source: element['@id'], target: v['@id'], name: name }
-                                    //  console.log("Link", link)
+                                    console.log("Link", link)
                                     this.links.push(link)
                                 }
                             })

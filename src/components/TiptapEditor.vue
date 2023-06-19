@@ -88,6 +88,8 @@ export default {
             //     document: ydoc,
             // })
 
+            // examples : https://codesandbox.io/examples/package/@hocuspocus/server
+            // https://codesandbox.io/s/admiring-wood-ucxepg?file=/server.ts
             this.provider = new HocuspocusProvider({
                 //appId: '7j9y6m10',
                 //url: "wss://hocus-noosphere.glitch.me",
