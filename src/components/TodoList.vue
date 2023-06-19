@@ -15,11 +15,13 @@
                     <div class="col">
                         <b-button v-if="canRemove" size="sm" @click.stop="removeTodo(todo)"
                             variant="outline-warning">X</b-button> &nbsp;
-                        <small><i>{{ since(todo['ve:created']) }}</i></small>
+                    </div>
+                    <div class="col"><small><i>{{ since(todo['ve:created']) }}</i></small>
                     </div>
                     <div class="col">
 
-                        <b-form-checkbox class="toggle" type="checkbox" v-model="userCheck[todo['@id']]" @click.stop variant="success">
+                        <b-form-checkbox class="toggle" type="checkbox" v-model="userCheck[todo['@id']]" @click.stop
+                            variant="success">
                             me
                         </b-form-checkbox>
                     </div>
@@ -29,7 +31,7 @@
 
         </b-list-group>
 
-        <ul class="todo-list">
+        <!-- <ul class="todo-list">
             <li v-for="todo in Array.from(y_store.todos).reverse()" class="todo" :key="todo['@id']">
                 <div class="view">
                     <b-form-checkbox class="toggle" type="checkbox" v-model="todo['ve:completed']">
@@ -42,7 +44,7 @@
 
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
@@ -54,7 +56,7 @@ export default {
         return {
             y_store, // Put the store on the data() of the component
             canRemove: true,
-             userCheck: {}
+            userCheck: {}
         };
     },
     methods: {
