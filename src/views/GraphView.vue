@@ -8,6 +8,9 @@ import { y_store, } from "@/y_store/index.js";
 import { areSame } from "@syncedstore/core";
 import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
 import * as elementResizeDetectorMaker from "element-resize-detector";
+import SpriteText from 'three-spritetext';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+
 
 export default {
     name: "GraphView",
@@ -38,19 +41,44 @@ export default {
             //         target: Math.round(Math.random() * (id - 1))
             //     }))
 
-            this.graph = ForceGraph3D()(this.$refs.graph)
+            this.graph = ForceGraph3D({
+                extraRenderers: [new CSS2DRenderer()]
+            })(this.$refs.graph)
                 .nodeId(['@id'])
                 .nodeLabel('ve:name')
                 .nodeVal('ve:val')
                 //.graphData(this.gData)
                 .backgroundColor("#0B0B61")
                 .height(window.innerHeight - 64)
+                .nodeThreeObject(node => {
+                    const nodeEl = document.createElement('div');
+                    nodeEl.textContent = node['ve:name']
+                   nodeEl.style.color = "#cccccc" //"node.color";
+                    nodeEl.className = 'node-label';
+                    return new CSS2DObject(nodeEl);
+                })
+                .nodeThreeObjectExtend(true)
                 // .height(this.$refs.graph.element.parent.height)
                 .onNodeClick(node => this.focus(node))
-                .nodeAutoColorBy('ve:completed')
+                .nodeAutoColorBy('ve:group')
                 .linkDirectionalArrowLength(3.5)
                 .linkDirectionalArrowRelPos(1)
-                .linkCurvature(0.25);
+                .linkCurvature(0.25).linkThreeObjectExtend(true)
+                .linkThreeObject(link => {
+                    // extend link with text sprite
+                    const sprite = new SpriteText(`${link.name}`);
+                    sprite.color = 'lightgrey';
+                    sprite.textHeight = 1.5;
+                    return sprite;
+                })
+                .linkPositionUpdate((sprite, { start, end }) => {
+                    const middlePos = Object.assign(...['x', 'y', 'z'].map(c => ({
+                        [c]: start[c] + (end[c] - start[c]) / 2 // calc middle point
+                    })))
+
+                    // Position sprite
+                    Object.assign(sprite.position, middlePos);
+                })
 
             this.graph.graphData({ nodes: this.nodes, links: this.links })
 
@@ -88,11 +116,13 @@ export default {
                         console.log(name, v)
                         if (v.type == "node") {
                             let link = { source: t['@id'], target: v['@id'], name: p.name }
+                            console.log("new link", link)
                             // ??????????????
                             // cette ligne donne moins de liens 
-                            // let link_exist = this.links.find((l) => l.source['@id'] == link.source['@id'] && l.target['@id'] == link.target['@id'] && l.name == link.name);
+                            // console.log("compare", l.source['@id'] ,link.source['@id'] ,l.target['@id'] , link.target['@id'], l.name == link.name)
+                            let link_exist = this.links.find((l) => l.source['@id'] == link.source['@id'] && l.target['@id'] == link.target['@id'] && l.name == link.name);
                             // que cette ligne ? 
-                            let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
+                            // let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
                             console.log("link exist ?", link_exist)
                             if (link_exist == undefined) {
                                 this.links.push(link)
@@ -214,5 +244,11 @@ export default {
     }
 }
 </script>
-
+.node-label {
+    font-size: 12px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.5);
+    user-select: none;
+  }
 <style scoped></style>

@@ -29,6 +29,7 @@
     "element-resize-detector": "^1.2.4",
     "register-service-worker": "^1.7.2",
     "remixicon": "^3.3.0",
+    "three-spritetext": "^1.8.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-simple-typeahead": "^1.0.11",
