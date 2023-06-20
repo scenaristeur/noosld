@@ -2,7 +2,12 @@
     <b-modal size="xl" @ok="updateNode" v-model="currentModal"
         :title="currentTemp['ve:group'] + '/' + currentTemp['ve:name']">
 
-        <div v-if="currentTemp['ve:text']">{{ currentTemp['ve:text'] }}<br></div>
+
+        <b-alert model-value="true" v-if="currentTemp['ve:text']">{{ currentTemp['ve:text'] }}</b-alert>
+
+        <b-alert model-value="true" v-if="currentTemp['ve:href']">
+            <b-link :href="currentTemp['ve:href']" target="_blank">{{ currentTemp['ve:name'] }}</b-link>
+        </b-alert>
 
         <TiptapEditor />
         <PropertyManager :todo="currentTemp" />

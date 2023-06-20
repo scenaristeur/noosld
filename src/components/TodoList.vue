@@ -12,9 +12,8 @@
                     </div>
 
                     <div class="col"> <b>{{ todo['ve:name'] }}</b></div>
-                    <div class="col">
-                        <b-button v-if="canRemove" size="sm" @click.stop="removeTodo(todo)"
-                            variant="outline-warning">X</b-button> &nbsp;
+                    <div class="col" v-if="canRemove">
+                        <b-button size="sm" @click.stop="removeTodo(todo)" variant="outline-warning">X</b-button> &nbsp;
                     </div>
                     <div class="col"><small><i>{{ since(todo['ve:created']) }}</i></small>
                     </div>
@@ -55,7 +54,7 @@ export default {
     data() {
         return {
             y_store, // Put the store on the data() of the component
-            canRemove: true,
+            canRemove: false,
             userCheck: {}
         };
     },

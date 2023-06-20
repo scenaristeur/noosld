@@ -5,7 +5,7 @@
 <script>
 import ForceGraph3D from '3d-force-graph';
 import { y_store, } from "@/y_store/index.js";
-import { areSame } from "@syncedstore/core";
+// import { areSame } from "@syncedstore/core";
 import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
 import * as elementResizeDetectorMaker from "element-resize-detector";
 import SpriteText from 'three-spritetext';
@@ -41,7 +41,7 @@ export default {
             //         target: Math.round(Math.random() * (id - 1))
             //     }))
 
-            this.graph = ForceGraph3D({
+            let graph = this.graph = ForceGraph3D({
                 extraRenderers: [new CSS2DRenderer()]
             })(this.$refs.graph)
                 .nodeId(['@id'])
@@ -86,9 +86,18 @@ export default {
                 this.$refs.graph,
                 el => {
                     this.graph.width(el.offsetWidth)
-                    this.graph.height(el.offsetHeight)
+                    //this.graph.height(window.innerHeight - 64)
                 }
             );
+
+
+            function reportWindowSize() {
+                //   heightOutput.textContent = window.innerHeight;
+                //   widthOutput.textContent = window.innerWidth;
+                graph.height(window.innerHeight - 64) //64
+            }
+
+            window.onresize = reportWindowSize;
         },
         changed(data) {
             // see syncedstore api https://syncedstore.org/docs/api/
@@ -101,19 +110,19 @@ export default {
                 let node_exist = this.nodes.find((node) => node['@id'] === t['@id']);
                 //   console.log("exist", node_exist)
                 if (node_exist != undefined) {
-                    console.log("are same ? ", areSame(node_exist, t))
+                    // console.log("are same ? ", areSame(node_exist, t))
                     node_exist = { ...node_exist, ...t }
-                    console.log("node update", node_exist)
+                    //  console.log("node update", node_exist)
                 } else {
-                    console.log("node creation ", t)
+                    // console.log("node creation ", t)
                     this.nodes.push(t)
                 }
                 // console.log(props)
                 props.forEach(p => {
-                    console.log(p)
-                    let name = p.name
+                    //  console.log(p)
+                    //  let name = p.name
                     p.values.forEach(v => {
-                        console.log(name, v)
+                        //     console.log(name, v)
 
                         switch (v.type) {
                             case "node":
@@ -129,21 +138,14 @@ export default {
                                 console.log("not managed yet : ", v.type, t, p, v)
                                 break;
                         }
-
-
-
-
                     })
                 })
             })
-
             this.graph.graphData({ nodes: this.nodes, links: this.links })
-
-
         },
         nodeLinkIfNotExist(t, p, v) { // todo, prop, value
             let link = { source: t['@id'], target: v['@id'], name: p.name }
-           // console.log("new link", link)
+            // console.log("new link", link)
             // ??????????????
             // cette ligne donne moins de liens 
             // console.log("compare", l.source['@id'] ,link.source['@id'] ,l.target['@id'] , link.target['@id'], l.name == link.name)
@@ -153,16 +155,16 @@ export default {
             //console.log("link exist ?", link_exist)
             if (link_exist == undefined) {
                 this.links.push(link)
-              //  console.log("links", this.links)
+                //  console.log("links", this.links)
             }
         },
         textAreaIfNotExist(t, p, v) {
-            console.log("TEXTAREA", t, p, v)
+            // console.log("TEXTAREA", t, p, v)
             let text = v.value
             let id = md5(text)
             let node_exist = this.nodes.find((node) => node['@id'] === id);
-            if (node_exist == undefined){
-                let node = {'@id': id, 've:text': text, 've:name': text.substring(0,10)+'...', 've:group': 'text' }
+            if (node_exist == undefined) {
+                let node = { '@id': id, 've:text': text, 've:name': text.substring(0, 10) + '...', 've:group': 'text' }
                 this.nodes.push(node)
             }
             let link = { source: t['@id'], target: id, name: p.name }
@@ -170,12 +172,28 @@ export default {
             //console.log("link exist ?", link_exist)
             if (link_exist == undefined) {
                 this.links.push(link)
-              //  console.log("links", this.links)
+                //  console.log("links", this.links)
             }
 
         },
         webLinkIfNotExist(t, p, v) {
-            console.log("WEBLINK", t, p, v)
+            //  console.log("WEBLINK", t, p, v)
+            let value = v.value
+            let name = value.name
+            let href = value.href
+            let id = md5(href)
+            let node = { '@id': id, 've:name': name, 've:href': href, 've:group': "weblink" }
+            let node_exist = this.nodes.find((n) => n['@id'] === node['@id']);
+            if (node_exist == undefined) {
+                this.nodes.push(node)
+            }
+            let link = { source: t['@id'], target: id, name: p.name }
+            let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
+            //console.log("link exist ?", link_exist)
+            if (link_exist == undefined) {
+                this.links.push(link)
+                //  console.log("links", this.links)
+            }
         },
 
 
