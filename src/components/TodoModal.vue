@@ -1,6 +1,9 @@
 <template>
     <b-modal size="xl" @ok="updateNode" v-model="currentModal"
         :title="currentTemp['ve:group'] + '/' + currentTemp['ve:name']">
+
+        <div v-if="currentTemp['ve:text']">{{ currentTemp['ve:text'] }}<br></div>
+
         <TiptapEditor />
         <PropertyManager :todo="currentTemp" />
         [links] [commentaires persos]

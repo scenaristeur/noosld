@@ -27,6 +27,7 @@
     "bootstrap-vue-3": "0.3.4",
     "core-js": "^3.8.3",
     "element-resize-detector": "^1.2.4",
+    "md5-hash": "^1.0.1",
     "register-service-worker": "^1.7.2",
     "remixicon": "^3.3.0",
     "three-spritetext": "^1.8.1",

@@ -10,7 +10,7 @@ import { observeDeep, /*getYjsValue*/ } from "@syncedstore/core";
 import * as elementResizeDetectorMaker from "element-resize-detector";
 import SpriteText from 'three-spritetext';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
-
+import md5 from 'md5-hash'
 
 export default {
     name: "GraphView",
@@ -158,6 +158,21 @@ export default {
         },
         textAreaIfNotExist(t, p, v) {
             console.log("TEXTAREA", t, p, v)
+            let text = v.value
+            let id = md5(text)
+            let node_exist = this.nodes.find((node) => node['@id'] === id);
+            if (node_exist == undefined){
+                let node = {'@id': id, 've:text': text, 've:name': text.substring(0,10)+'...', 've:group': 'text' }
+                this.nodes.push(node)
+            }
+            let link = { source: t['@id'], target: id, name: p.name }
+            let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
+            //console.log("link exist ?", link_exist)
+            if (link_exist == undefined) {
+                this.links.push(link)
+              //  console.log("links", this.links)
+            }
+
         },
         webLinkIfNotExist(t, p, v) {
             console.log("WEBLINK", t, p, v)
