@@ -27,6 +27,7 @@
 
 
 
+## autogpt auto analyse https://github.com/Significant-Gravitas/Auto-GPT/issues/15
 
 ## Project setup
 ````

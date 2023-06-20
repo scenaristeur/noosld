@@ -53,7 +53,7 @@ export default {
                 .nodeThreeObject(node => {
                     const nodeEl = document.createElement('div');
                     nodeEl.textContent = node['ve:name']
-                   nodeEl.style.color = "#cccccc" //"node.color";
+                    nodeEl.style.color = "#cccccc" //"node.color";
                     nodeEl.className = 'node-label';
                     return new CSS2DObject(nodeEl);
                 })
@@ -114,22 +114,25 @@ export default {
                     let name = p.name
                     p.values.forEach(v => {
                         console.log(name, v)
-                        if (v.type == "node") {
-                            let link = { source: t['@id'], target: v['@id'], name: p.name }
-                            console.log("new link", link)
-                            // ??????????????
-                            // cette ligne donne moins de liens 
-                            // console.log("compare", l.source['@id'] ,link.source['@id'] ,l.target['@id'] , link.target['@id'], l.name == link.name)
-                            let link_exist = this.links.find((l) => l.source['@id'] == link.source['@id'] && l.target['@id'] == link.target['@id'] && l.name == link.name);
-                            // que cette ligne ? 
-                            // let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
-                            console.log("link exist ?", link_exist)
-                            if (link_exist == undefined) {
-                                this.links.push(link)
-                                console.log("links", this.links)
-                            }
 
+                        switch (v.type) {
+                            case "node":
+                                this.nodeLinkIfNotExist(t, p, v)
+                                break;
+                            case "textarea":
+                                this.textAreaIfNotExist(t, p, v)
+                                break;
+                            case "link":
+                                this.webLinkIfNotExist(t, p, v)
+                                break;
+                            default:
+                                console.log("not managed yet : ", v.type, t, p, v)
+                                break;
                         }
+
+
+
+
                     })
                 })
             })
@@ -138,6 +141,39 @@ export default {
 
 
         },
+        nodeLinkIfNotExist(t, p, v) { // todo, prop, value
+            let link = { source: t['@id'], target: v['@id'], name: p.name }
+           // console.log("new link", link)
+            // ??????????????
+            // cette ligne donne moins de liens 
+            // console.log("compare", l.source['@id'] ,link.source['@id'] ,l.target['@id'] , link.target['@id'], l.name == link.name)
+            //let link_exist = this.links.find((l) => l.source['@id'] == link.source['@id'] && l.target['@id'] == link.target['@id'] && l.name == link.name);
+            // que cette ligne ? 
+            let link_exist = this.links.find((l) => l.source == link.source && l.target == link.target && l.name == link.name);
+            //console.log("link exist ?", link_exist)
+            if (link_exist == undefined) {
+                this.links.push(link)
+              //  console.log("links", this.links)
+            }
+        },
+        textAreaIfNotExist(t, p, v) {
+            console.log("TEXTAREA", t, p, v)
+        },
+        webLinkIfNotExist(t, p, v) {
+            console.log("WEBLINK", t, p, v)
+        },
+
+
+
+
+
+
+
+
+
+
+
+
         changed1(data) {
             console.log("CHANGED", data)
             // console.log("entries", data.entries())
